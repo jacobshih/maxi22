@@ -56,15 +56,15 @@ a web application that demonstrates responsive web ui that interacts with golang
 
 * ~~create maxi22lounge docker image.~~
  
-    ~~```
+    ```
     docker build -f dockerfiles/maxi22lounge.dockerfile -t jacobrepo/maxi22lounge:0.01 .
-    ```~~
+    ```
 
 * ~~run it as an http daemon.~~
 
-    ~~```
+    ```
     docker run -d --name maxi22lounge --dns 172.19.10.100 -p 8888:80 jacobrepo/maxi22lounge:0.01
-    ```~~
+    ```
 
 ## test web server
 
