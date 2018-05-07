@@ -1,0 +1,804 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../pics/favicon.ico">
+
+    <title></title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="../../bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../../bootstrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="bspanel.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../bootstrap/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body role="document">
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a id="navbar_title" class="navbar-brand" href="#"></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="pagelink"><a href="#" id="home"   >Home</a></li>
+            <li class="pagelink"><a href="#" id="about"  >About</a></li>
+            <li class="pagelink"><a href="#" id="contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li class="pagelink"><a href="#" id="pibinfo">PIB info</a></li>
+                <li class="pagelink"><a href="#" id="leds"   >LEDs and buttons</a></li>
+                <li class="pagelink"><a href="#" id="wifi"   >WiFi settings</a></li>
+                <li class="pagelink"><a href="#" id="ircutr" >IrCutR control</a></li>
+                <li class="pagelink"><a href="#" id="ir"     >IR LED control</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Features</li>
+                <li class="pagelink"><a href="#" id="pir"    >PIR (People IR, Motion detection)</a></li>
+                <li class="pagelink"><a href="#" id="pantilt">Pan tilt</a></li>
+                <li class="pagelink"><a href="#" id="thermal">Thermal control</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <!-- panel.pages["home"] -->
+    <div class="container content" id="content_home"  style="display: none;">
+      <h2>Home</h2>
+      <p style="margin-top: 180px; text-align: center; font-size: 28px;">TBD</p>
+    </div><!-- class="container content" id="content_home" -->
+
+    <!-- panel.pages["about"] -->
+    <div class="container content" id="content_about"  style="display: none;">
+      <h2>About</h2>
+      <p style="margin-top: 180px; text-align: center; font-size: 28px;">TBD</p>
+    </div><!-- class="container content" id="content_about" -->
+
+    <!-- panel.pages["contact"] -->
+    <div class="container content" id="content_contact"  style="display: none;">
+      <h2>Contact</h2>
+      <p style="margin-top: 180px; text-align: center; font-size: 28px;">TBD</p>
+    </div><!-- class="container content" id="content_contact" -->
+
+    <!-- panel.pages["pibinfo"] -->
+    <div class="container content" id="content_pibinfo"  style="display: none;">
+      <div class="page-header">
+        <h2>PIB info</h2>
+      </div>
+      <div class="panel-group">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#pibinfo_general">General</a>
+            </h4>
+          </div>
+          <div id="pibinfo_general" class="panel-collapse collapse in">
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_bootmode">BootMode:</label></td>
+                    <td><select class="form-control" id="pibinfo_bootmode">
+                        <option value="normal">normal</option>
+                        <option value="mfg">mfg</option>
+                        </select>
+                    </td>
+                  </div>
+                </tr>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_hwboard">HWBoard:</label></td>
+                    <td><input type="text" class="form-control" id="pibinfo_hwboard"></td>
+                  </div>
+                </tr>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_hwversion">HWVersion:</label></td>
+                    <td><input type="text" class="form-control" id="pibinfo_hwversion"></td>
+                  </div>
+                </tr>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_modelname">ModelName:</label></td>
+                    <td><input type="text" class="form-control" id="pibinfo_modelname"></td>
+                  </div>
+                </tr>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_macaddress">MacAddress:</label></td>
+                    <td><input type="text" class="form-control" id="pibinfo_macaddress"></td>
+                  </div>
+                </tr>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_macaddress2">MacAddress2:</label></td>
+                    <td><input type="text" class="form-control" id="pibinfo_macaddress2"></td>
+                  </div>
+                </tr>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_sensor">Sensor:</label></td>
+                    <td><input type="text" class="form-control" id="pibinfo_sensor"></td>
+                  </div>
+                </tr>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_sensorcaps">SensorCaps:</label></td>
+                    <td><input type="text" class="form-control" id="pibinfo_sensorcaps"></td>
+                  </div>
+                </tr>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_region">Region:</label></td>
+                    <td><input type="text" class="form-control" id="pibinfo_region"></td>
+                  </div>
+                </tr>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_regionaband">RegionABand:</label></td>
+                    <td><input type="text" class="form-control" id="pibinfo_regionaband"></td>
+                  </div>
+                </tr>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_ktkey">KTKey:</label></td>
+                    <td><input type="text" class="form-control" id="pibinfo_ktkey"></td>
+                  </div>
+                </tr>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_factorypassword">FactoryPassword:</label></td>
+                    <td><input type="text" class="form-control" id="pibinfo_factorypassword"></td>
+                  </div>
+                </tr>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_efusebuffermode">EfuseBufferMode:</label></td>
+                    <td><input type="text" class="form-control" id="pibinfo_efusebuffermode"></td>
+                  </div>
+                </tr>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_apsecuritymode">ApSecurityMode:</label></td>
+                    <td><input type="text" class="form-control" id="pibinfo_apsecuritymode"></td>
+                  </div>
+                </tr>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_powerfrequency">PowerFrequency:</label></td>
+                    <td><input type="text" class="form-control" id="pibinfo_powerfrequency"></td>
+                  </div>
+                </tr>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_dewarpoffset">DewarpOffset:</label></td>
+                    <td><input type="text" class="form-control" id="pibinfo_dewarpoffset"></td>
+                  </div>
+                </tr>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_apkey">ApKey:</label></td>
+                    <td><input type="text" class="form-control" id="pibinfo_apkey"></td>
+                  </div>
+                </tr>
+                <tr>
+                  <div class="form-group">
+                    <td><label for="pibinfo_devuid">DevUid:</label></td>
+                    <td><input type="text" class="form-control" id="pibinfo_devuid"></td>
+                  </div>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div><!-- class="container content" id="content_pibinfo" -->
+
+    <!-- panel.pages["leds"] -->
+    <div class="container content" id="content_leds"  style="display: none;">
+      <div class="page-header">
+        <h2>LEDs and buttons</h2>
+      </div>
+      <div class="panel-group">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#panel_leds">LEDs</a>
+            </h4>
+          </div>
+          <div id="panel_leds" class="panel-collapse collapse in">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>LED</th>
+                  <th>On</th>
+                  <th>Off</th>
+                  <th>Blink</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Power</td>
+                  <td><div class="radio"><label><input type="radio" value="on"    name="watchdog_radio_power" id="watchdog_radio_power_on"   ></label></div></td>
+                  <td><div class="radio"><label><input type="radio" value="off"   name="watchdog_radio_power" id="watchdog_radio_power_off"  ></label></div></td>
+                  <td><div class="radio"><label><input type="radio" value="blink" name="watchdog_radio_power" id="watchdog_radio_power_blink"></label></div></td>
+                </tr>
+                <tr>
+                  <td>Link</td>
+                  <td><div class="radio"><label><input type="radio" value="on"    name="watchdog_radio_link" id="watchdog_radio_link_on"   ></label></div></td>
+                  <td><div class="radio"><label><input type="radio" value="off"   name="watchdog_radio_link" id="watchdog_radio_link_off"  ></label></div></td>
+                  <td><div class="radio"><label><input type="radio" value="blink" name="watchdog_radio_link" id="watchdog_radio_link_blink"></label></div></td>
+                </tr>
+                <tr>
+                  <td>WPS</td>
+                  <td><div class="radio"><label><input type="radio" value="on"    name="watchdog_radio_wps" id="watchdog_radio_wps_on"   ></label></div></td>
+                  <td><div class="radio"><label><input type="radio" value="off"   name="watchdog_radio_wps" id="watchdog_radio_wps_off"  ></label></div></td>
+                  <td><div class="radio"><label><input type="radio" value="blink" name="watchdog_radio_wps" id="watchdog_radio_wps_blink"></label></div></td>
+                </tr>
+                <tr>
+                  <td colspan="4"><button type="button" class="btn btn-default" id="watchdog_button_clear_leds">CLEAR</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="panel-group">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#panel_buttons">Buttons</a>
+            </h4>
+          </div>
+          <div id="panel_buttons" class="panel-collapse collapse in">
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>Press the WPS button to establish the WPS connection.</td>
+                  <td style="text-align:right;"><button type="button" class="btn btn-success" id="watchdog_button_wps">WPS</button></td>
+                </tr>
+                <tr>
+                  <td>Reset the device to factory default.</td>
+                  <td style="text-align:right;"><button type="button" class="btn btn-danger" id="watchdog_button_reset">Reset</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="panel-group">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#panel_buttons">watchdog</a>
+            </h4>
+          </div>
+          <div id="panel_buttons" class="panel-collapse collapse in">
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td>Restart watchdog daemon.</td>
+                  <td style="text-align:right;"><button type="button" class="btn btn-success" id="watchdog_button_restart">Restart</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div><!-- class="container content" id="content_leds" -->
+
+    <!-- panel.pages["wifi"] -->
+    <div class="container content" id="content_wifi"  style="display: none;">
+      <h2>WiFi settings</h2>
+      <p style="margin-top: 180px; text-align: center; font-size: 28px;">TBD</p>
+    </div><!-- class="container content" id="content_wifi" -->
+
+    <!-- panel.pages["ircutr"] -->
+    <div class="container content" id="content_ircutr"  style="display: none;">
+      <div class="page-header">
+        <h2>IrCutR control</h2>
+      </div>
+      <div class="panel-group">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#panel_ircutr">IrCutR control</a>
+            </h4>
+          </div>
+          <div id="panel_ircutr" class="panel-collapse collapse in">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>&nbsp;</th>
+                  <th>On</th>
+                  <th>Off</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>IrCutR control</td>
+                  <td><div class="radio"><label><input type="radio" value="on"    name="watchdog_radio_ircutr" id="watchdog_radio_ircutr_on"   ></label></div></td>
+                  <td><div class="radio"><label><input type="radio" value="off"   name="watchdog_radio_ircutr" id="watchdog_radio_ircutr_off"  ></label></div></td>
+                </tr>
+                <tr>
+                  <td colspan="3"><input type="range" size="2" name="width" min="1" max="1080" value="640"></td>
+                </tr>
+                <tr>
+                  <td colspan="3"><input type="number" size="6" name="height" min="1" max="720" value="480"></td>
+                </tr>
+                <tr>
+                  <td colspan="3"><button type="button" class="btn btn-default" id="watchdog_button_clear_ircutr">CLEAR</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div><!-- class="container content" id="content_ircutr" -->
+
+    <!-- panel.pages["ir"] -->
+    <div class="container content" id="content_ir"  style="display: none;">
+      <div class="page-header">
+        <h2>IR LED control</h2>
+      </div>
+      <div class="panel-group">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#panel_ir">IR LED control</a>
+            </h4>
+          </div>
+          <div id="panel_ir" class="panel-collapse collapse in">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>&nbsp;</th>
+                  <th>On</th>
+                  <th>Off</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>IR LED control</td>
+                  <td><div class="radio"><label><input type="radio" value="on"    name="watchdog_radio_ir" id="watchdog_radio_ir_on"   ></label></div></td>
+                  <td><div class="radio"><label><input type="radio" value="off"   name="watchdog_radio_ir" id="watchdog_radio_ir_off"  ></label></div></td>
+                </tr>
+                <tr>
+                  <td colspan="3"><button type="button" class="btn btn-default" id="watchdog_button_clear_ir">CLEAR</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div><!-- class="container content" id="content_ir" -->
+
+    <!-- panel.pages["pir"] -->
+    <div class="container content" id="content_pir"  style="display: none;">
+      <h2>PIR (People IR, Motion detection)</h2>
+      <p style="margin-top: 180px; text-align: center; font-size: 28px;">TBD</p>
+    </div><!-- class="container content" id="content_pir" -->
+
+    <!-- panel.pages["pantilt"] -->
+    <div class="container content" id="content_pantilt"  style="display: none;">
+      <h2>Pan tilt</h2>
+      <p style="margin-top: 180px; text-align: center; font-size: 28px;">TBD</p>
+    </div><!-- class="container content" id="content_pantilt" -->
+
+    <!-- panel.pages["thermal"] -->
+    <div class="container content" id="content_thermal"  style="display: none;">
+      <h2>Thermal control</h2>
+      <p style="margin-top: 180px; text-align: center; font-size: 28px;">TBD</p>
+    </div><!-- class="container content" id="content_thermal" -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../bootstrap/assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../../bootstrap/dist/js/bootstrap.min.js"></script>
+    <!--
+    <script src="../../bootstrap/assets/js/docs.min.js"></script>
+     -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../bootstrap/assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+<script>
+// +++ fixed for ie9 and below.
+if (!Object.create) {
+    Object.create = function(o, properties) {
+        if (typeof o !== 'object' && typeof o !== 'function') {
+            throw new TypeError('Object prototype may only be an Object: ' + o);
+        } else if (o === null) {
+            throw new Error("This browser's implementation of Object.create is a shim and doesn't support 'null' as the first argument.");
+        }
+        if (typeof properties != 'undefined') {
+            throw new Error("This browser's implementation of Object.create is a shim and doesn't support a second argument.");
+        }
+        function F() {}
+        F.prototype = o;
+        return new F();
+    };
+}
+// --- fixed for ie9 and below.
+
+//////////////////////////////////////////////////////////////////////////////
+// Page
+function Panel() {
+    this.anchorHandlers = {
+        "home": this.goPage,
+        "about": this.goPage,
+        "contact": this.goPage,
+        "pibinfo": this.goPage,
+        "leds": this.goPage,
+        "wifi": this.goPage,
+        "ircutr": this.goPage,
+        "ir": this.goPage,
+        "pir": this.goPage,
+        "pantilt": this.goPage,
+        "thermal": this.goPage,
+    }
+}
+
+Panel.prototype.initialize = function(){
+    var anchors = Array.prototype.slice.call(document.getElementsByTagName("a"));
+    anchors.forEach(this.addAnchorEventHandler.bind(this));
+    this.pages = [];
+    this.pages["home"] = new PageHome(this, "content_home");
+    this.pages["about"] = new PageAbout(this, "content_about");
+    this.pages["contact"] = new PageContact(this, "content_contact");
+    this.pages["pibinfo"] = new PagePibInfo(this, "content_pibinfo");
+    this.pages["leds"] = new PageLeds(this, "content_leds");
+    this.pages["wifi"] = new PageWifi(this, "content_wifi");
+    this.pages["ircutr"] = new PageIrCutR(this, "content_ircutr");
+    this.pages["ir"] = new PageIR(this, "content_ir");
+    this.pages["pir"] = new PagePIR(this, "content_pir");
+    this.pages["pantilt"] = new PagePanTilt(this, "content_pantilt");
+    this.pages["thermal"] = new PageThermal(this, "content_thermal");
+    for(i in this.pages) {
+        this.pages[i].initialize();
+    }
+    // clooapse navbar when the menu link being clicked.
+    $(document).on('click','.navbar-collapse.in',function(e) {
+        if( $(e.target).is('a') ) {
+            $(this).collapse('hide');
+        }
+    });
+    // set title of navbar and document.
+    $("#navbar_title").text(APPNAME);
+    document.title = APPNAME;
+}
+
+Panel.prototype.addAnchorEventHandler = function(element, index, array){
+    if(element.id) {
+        $("#"+element.id).on("click", function() {
+            this.onAnchorClicked(element);
+        }.bind(this));
+    }
+}
+
+Panel.prototype.goPage = function(element) {
+    var id = element.id;
+    var page = this.pages[id];
+    page && page.show();
+}
+
+Panel.prototype.onAnchorClicked = function(element){
+    var handler = this.anchorHandlers[element.id];
+    if(handler) {
+        // reset class of li nodes which classname is active to remove the active property.
+        var li_actives = Array.prototype.slice.call(document.querySelectorAll("li.active"));
+        li_actives.forEach(function(element, index, array) {
+            element.className = "pagelink";
+        });
+
+        var parentNode = element.parentNode;
+        parentNode.className = (parentNode.nodeName === "LI") ? "pagelink active" : parentNode.className;
+        handler.bind(this)(element);
+    }
+    return false;
+}
+
+Panel.prototype.cgiSend = function(method, url, params, callback) {
+    $.ajax({
+        type: method,
+        url: url,
+        data: $.param(params),
+        success: function (data) {
+            callback(data);
+        }
+    });
+};
+
+Panel.prototype.cgiCallback = function(data) {
+    console.log(data);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// Page
+function Page(parent, id) {
+    this.parent = parent;
+    this.id = id;
+}
+
+Page.prototype.initialize = function() {
+}
+
+Page.prototype.show = function() {
+    $(".container.content").hide();
+    $("#"+this.id).show();
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// PageHome
+PageHome.prototype = Object.create(Page.prototype);
+
+function PageHome(parent, id) {
+    Page.call(this, parent, id);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// PageAbout
+PageAbout.prototype = Object.create(Page.prototype);
+
+function PageAbout(parent, id) {
+    Page.call(this, parent, id);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// PageContact
+PageContact.prototype = Object.create(Page.prototype);
+
+function PageContact(parent, id) {
+    Page.call(this, parent, id);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// PageLeds
+PageLeds.prototype = Object.create(Page.prototype);
+
+function PageLeds(parent, id) {
+    Page.call(this, parent, id);
+}
+
+PageLeds.prototype.initialize = function() {
+    var that = this;    // set that to the instance of Panel.
+    $("input[type=radio][name=watchdog_radio_power]").change(function() {
+        that.setLed(this.id, "led", "power", this.value);
+    });
+    $("input[type=radio][name=watchdog_radio_link]").change(function() {
+        that.setLed(this.id, "led", "link", this.value);
+    });
+    $("input[type=radio][name=watchdog_radio_wps]").change(function() {
+        that.setLed(this.id, "led", "wps", this.value);
+    });
+    $("#watchdog_button_wps").on("click", function() {
+        that.setButton(this.id, "button", "wps");
+    });
+    $("#watchdog_button_reset").on("click", function() {
+        that.setButton(this.id, "button", "reset");
+    });
+    $("#watchdog_button_restart").on("click", function() {
+        that.setButton(this.id, "restart", "restart");
+    });
+    $("#watchdog_button_clear_leds").on("click", function() {
+        $(':radio').removeProp('checked');
+    });
+}
+
+PageLeds.prototype.setLed = function(from, what, id, color) {
+    var params = {
+        "from": from,
+        "what": what,
+        "id": id,
+        "color": color
+    }
+    this.parent.cgiSend("POST", "/bspanel/cgi/watchdog.cgi", params, this.parent.cgiCallback);
+}
+
+PageLeds.prototype.setButton = function(from, what, id) {
+    var params = {
+        "from": from,
+        "what": what,
+        "id": id
+    }
+    this.parent.cgiSend("POST", "/bspanel/cgi/watchdog.cgi", params, this.parent.cgiCallback);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// PagePibInfo
+PagePibInfo.prototype = Object.create(Page.prototype);
+
+function PagePibInfo(parent, id) {
+    Page.call(this, parent, id);
+}
+
+PagePibInfo.prototype.initialize = function() {
+    var generalTextElms = [
+        { "id": "pibinfo_hwboard",         "key": "HWBoard" },
+        { "id": "pibinfo_hwversion",       "key": "HWVersion" },
+        { "id": "pibinfo_modelname",       "key": "ModelName" },
+        { "id": "pibinfo_macaddress",      "key": "MacAddress" },
+        { "id": "pibinfo_macaddress2",     "key": "MacAddress2" },
+        { "id": "pibinfo_sensor",          "key": "Sensor" },
+        { "id": "pibinfo_sensorcaps",      "key": "SensorCaps" },
+        { "id": "pibinfo_region",          "key": "Region" },
+        { "id": "pibinfo_regionaband",     "key": "RegionABand" },
+        { "id": "pibinfo_ktkey",           "key": "KTKey" },
+        { "id": "pibinfo_factorypassword", "key": "FactoryPassword" },
+        { "id": "pibinfo_efusebuffermode", "key": "EfuseBufferMode" },
+        { "id": "pibinfo_apsecuritymode",  "key": "ApSecurityMode" },
+        { "id": "pibinfo_powerfrequency",  "key": "PowerFrequency" },
+        { "id": "pibinfo_dewarpoffset",    "key": "DewarpOffset" },
+        { "id": "pibinfo_apkey",           "key": "ApKey" },
+        { "id": "pibinfo_devuid",          "key": "DevUid" }
+    ];
+    panel = this.parent;
+    panel.cgiSend("POST", "/bspanel/cgi/pibinfo.cgi", {"cmd":"all"}, function(data) {
+        console.log(data);
+        try {
+            var all=JSON.parse(data);
+            if(all["BootMode"] == "mfg") {
+                $("#pibinfo_bootmode option[value=mfg]").attr("selected", true);
+            } else {
+                $("#pibinfo_bootmode option[value=normal]").attr("selected", true);
+            }
+            generalTextElms.forEach(function(element, index, array) {
+                var id = element["id"];
+                var key = element["key"];
+                $("#"+id).val(all[key]);
+            });
+        } catch(err) {
+            console.log("%o", err);
+        }
+    });
+
+    $("#pibinfo_bootmode").on("change", function() {
+        var value = $("#pibinfo_bootmode").val();
+        panel.cgiSend("POST", "/bspanel/cgi/pibinfo.cgi", {"cmd":"set","key":"BootMode","value":value}, function(data) { console.log(data); });
+    });
+    generalTextElms.forEach(function(element, index, array) {
+        var id = element["id"];
+        var key = element["key"];
+        $("#"+id).on("change", function() {
+            var value = $("#"+id).val();
+            panel.cgiSend("POST", "/bspanel/cgi/pibinfo.cgi", {"cmd":"set","key":key,"value":value}, function(data) {
+                var all=JSON.parse(data);
+                $("#"+id).val(all[key]);
+                console.log(data);
+            });
+        });
+    });
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// PageWifi
+PageWifi.prototype = Object.create(Page.prototype);
+
+function PageWifi(parent, id) {
+    Page.call(this, parent, id);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// PageIrCutR
+PageIrCutR.prototype = Object.create(Page.prototype);
+
+function PageIrCutR(parent, id) {
+    Page.call(this, parent, id);
+}
+
+PageIrCutR.prototype.initialize = function() {
+    var that = this;    // set that to the instance of Panel.
+    $("input[type=radio][name=watchdog_radio_ircutr]").change(function() {
+        that.setICR(this.id, "icr", "ircutr", this.value);
+    });
+    $("#watchdog_button_clear_ircutr").on("click", function() {
+        $(':radio').removeProp('checked');
+    });
+}
+
+PageIrCutR.prototype.setICR = function(from, what, id, value) {
+    var params = {
+        "from": from,
+        "what": what,
+        "id": id,
+        "value": value
+    }
+    this.parent.cgiSend("POST", "/bspanel/cgi/watchdog.cgi", params, this.parent.cgiCallback);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// PageIR
+PageIR.prototype = Object.create(Page.prototype);
+
+function PageIR(parent, id) {
+    Page.call(this, parent, id);
+}
+
+PageIR.prototype.initialize = function() {
+    var that = this;    // set that to the instance of Panel.
+    $("input[type=radio][name=watchdog_radio_ir]").change(function() {
+        that.setIR(this.id, "led", "ir", this.value);
+    });
+    $("#watchdog_button_clear_ir").on("click", function() {
+        $(':radio').removeProp('checked');
+    });
+}
+
+PageIR.prototype.setIR = function(from, what, id, color) {
+    var params = {
+        "from": from,
+        "what": what,
+        "id": id,
+        "color": color
+    }
+    this.parent.cgiSend("POST", "/bspanel/cgi/watchdog.cgi", params, this.parent.cgiCallback);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// PagePIR
+PagePIR.prototype = Object.create(Page.prototype);
+
+function PagePIR(parent, id) {
+    Page.call(this, parent, id);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// PagePanTilt
+PagePanTilt.prototype = Object.create(Page.prototype);
+
+function PagePanTilt(parent, id) {
+    Page.call(this, parent, id);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// PageThermal
+PageThermal.prototype = Object.create(Page.prototype);
+
+function PageThermal(parent, id) {
+    Page.call(this, parent, id);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// document scripts
+var APPNAME="bspanel";
+var panel = new Panel();
+$(document).ready(initialize);
+function initialize() {
+    panel.initialize();
+    // clear checked for all radio buttons as document loaded. (firefox workaround)
+    $(':radio').removeProp('checked');
+    panel.onAnchorClicked($("#leds")[0]);
+}
+</script>
+</html>
