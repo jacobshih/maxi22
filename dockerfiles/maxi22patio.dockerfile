@@ -8,6 +8,7 @@ RUN apt-get update
 RUN apt-get install -y \
     apache2 \
     python-pip \
+    python3 python3-pip \
     vim \
     tzdata \
     sudo
