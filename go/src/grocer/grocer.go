@@ -1,10 +1,12 @@
-package main 
+package main
 
 import (
 	"log"
 	"net"
 	"os"
 	"os/signal"
+	"path/filepath"
+	"strings"
 	"syscall"
 )
 
@@ -46,9 +48,49 @@ func (ipcSock *IPCSocket) run(response ResponseFunc) {
 		if err != nil {
 			log.Fatal("accept error: ", err)
 		}
-		
+
 		go response(fd)
 	}
+}
+
+func getData(dataPath string) []byte {
+	const dataDummy = `{
+		"group01": {
+			"1": {
+				"name": "name01",
+				"email": "name01@abc.com"
+			},
+			"2": {
+				"name": "name02",
+				"email": "name02@abc.com"
+			},
+			"event": [
+				{
+					"name": "event01",
+					"description": "description01"
+				}
+			]
+		}
+	}
+	`
+
+	nodes := strings.Split(dataPath, "/")
+
+	// FIXME - process the request here and remove temporary snippets.
+	// +++ temporary
+	debug := false
+	if debug {
+		for i := range nodes {
+			println("   ", i, nodes[i])
+		}
+	} else {
+		println(dataPath)
+	}
+
+	data := []byte(dataDummy)
+	// --- temporary
+
+	return data
 }
 
 func responseFunc(c net.Conn) {
@@ -58,57 +100,26 @@ func responseFunc(c net.Conn) {
 		if err != nil {
 			return
 		}
-		
-		data := buf[0:nr]
-		println("server got: ", string(data))
+
+		// filepath.Clean() helps normalize the path.
+		// e.g., replace multiple separators with a single one.
+		dataPath := filepath.Clean(string(buf[:nr]))
+		data := []byte(getData(dataPath))
 		_, err = c.Write(data)
 		if err != nil {
 			log.Fatal("writing client error: ", err)
 		}
 	}
 }
-
-func echoServer(c net.Conn) {
-	for {
-		buf := make([]byte, 512)
-		nr, err := c.Read(buf)
-		if err != nil {
-			return
-		}
-		
-		data := buf[0:nr]
-		println("server got: ", string(data))
-		_, err = c.Write(data)
-		if err != nil {
-			log.Fatal("writing client error: ", err)
-		}
-	}
-}
-
 
 func main() {
-	log.Println("starting echo server...")
-	ln, err := net.Listen("unix", "/tmp/grocer.sock")
-	if err != nil {
-		log.Fatal("listen error: ", err)
-	}
-	
-	sigc := make(chan os.Signal, 1)
-	signal.Notify(sigc, os.Interrupt, syscall.SIGTERM)
-	go func(ln net.Listener, c chan os.Signal) {
-		sig := <-c
-		log.Printf("caught signal %s: shutting down", sig)
-		ln.Close()
-		os.Exit(0)
-	}(ln, sigc)
-	
-	for {
-		fd, err := ln.Accept()
-		if err != nil {
-			log.Fatal("accept error: ", err)
-		}
-		
-		go echoServer(fd)
-	}
-}
+	log.Println("starting grocer...")
 
+	// FIXME - initialize backend here.
+
+	ipcsock := IPCSocket{}
+	ipcsock.init("/tmp/grocer.sock")
+	ipcsock.start()
+	ipcsock.run(responseFunc)
+	ipcsock.stop()
+}
