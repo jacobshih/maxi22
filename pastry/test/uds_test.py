@@ -5,7 +5,7 @@ uds.py: unix domain socket.
 """
 # noinspection PyUnresolvedReferences
 import parentpath
-import threading
+import json
 
 from tools.aap import AnotherArgumentParser
 from tools.uds import UDSServer, UDSClient
@@ -39,14 +39,13 @@ class IPCClient(UDSClient):
     def onsend(self, data):
         resp = ""
         if not self.async:
-            resp = self._socket.recv(self.RECEVICE_SIZE)
+            resp = self._socket.recv(self.RECEIVED_SIZE)
 
         return resp
 
 
 class UDSService:
     args = None
-    lock = threading.Lock()
 
     def __init__(self):
         pass
@@ -70,7 +69,10 @@ class UDSService:
             async = args.async
             client = IPCClient(sockfile, async)
             client.start()
-            client.send(data)
+            resp = client.send(data)
+            respstr = resp.decode()
+            jso = json.loads(respstr)
+            print(json.dumps(jso, indent=2))
             client.stop()
         return
 

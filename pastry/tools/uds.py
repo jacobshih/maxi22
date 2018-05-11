@@ -18,7 +18,7 @@ import uuid
 
 class UDS(object):
     _sockfile = None
-    RECEVICE_SIZE = 1024
+    RECEIVED_SIZE = 1024
 
     def __init__(self, sockfile):
         self._sockfile = sockfile
@@ -93,7 +93,7 @@ class UDSServer(UDS, metaclass=abc.ABCMeta):
                 else:
                     self.connection = connection
                     while self.listening:
-                        data = connection.recv(self.RECEVICE_SIZE)
+                        data = connection.recv(self.RECEIVED_SIZE)
                         if not data:
                             break
                         else:
@@ -138,10 +138,8 @@ class UDSClient(UDS, metaclass=abc.ABCMeta):
         resp = ""
         if self._socket:
             try:
-                print("--->>>", data)
                 self._socket.send(data.encode())
                 resp = self.onsend(data)
-                print("<<<---", resp.decode())
             except IOError as e:
                 print(e)
                 print(uuid.ctypes.create_string_buffer(data).value.decode())
