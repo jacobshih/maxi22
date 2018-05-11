@@ -3,16 +3,10 @@
 """
 aap_test.py: test aap (another argument parser) module
 """
-import os
-import sys
-
-if __name__ == '__main__':
-    # prevent python from generating compiled byte code (.pyc).
-    sys.dont_write_bytecode = True
-    # append parent directory to python path.
-    sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
-
+# noinspection PyUnresolvedReferences
+import parentpath
 from tools.aap import AnotherArgumentParser
+
 
 class AAP:
     args = None
@@ -20,31 +14,30 @@ class AAP:
     def __init__(self):
         pass
 
+    # noinspection PyMethodMayBeStatic
     def first_help(self):
-        args = self.args
         print(args_parser.parse_args(["first", "-h"]))
         return
 
+    # noinspection PyMethodMayBeStatic
     def second_help(self):
-        args = self.args
         print(args_parser.parse_args(["second", "-h"]))
         return
 
+    # noinspection PyMethodMayBeStatic
     def first_one_action(self):
-        args = self.args
         print("first one action")
         return
 
+    # noinspection PyMethodMayBeStatic
     def first_two_action(self):
-        args = self.args
         print("first two action")
         return
 
+    # noinspection PyMethodMayBeStatic
     def second_action(self):
-        args = self.args
         print("second action")
         return
-
 
     def run(self, args, parser=None):
         self.args = args
@@ -79,7 +72,7 @@ def init_args_parser():
 
     # create the parser for the "second" command
     parser_second = subparsers.add_parser("second", help="second command.")
-    #subparsers_second = parser_second.add_subparsers(title="second", help="the actions of the second")
+    # subparsers_second = parser_second.add_subparsers(title="second", help="the actions of the second")
     parser_second.add_argument("-e", "--egg", required=True, help="what is egg.")
     parser_second.add_argument("-f", "--fruit", action="store_true", default=False, help="what is fruit.")
     parser_second.set_defaults(action="second_action")

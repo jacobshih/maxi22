@@ -3,25 +3,13 @@
 """
 uds.py: unix domain socket.
 """
-import os
-import sys
-
-if __name__ == '__main__':
-    # prevent python from generating compiled byte code (.pyc).
-    sys.dont_write_bytecode = True
-    # append parent directory to python path.
-    sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
-
-import abc
-import argparse
-import io
-import signal
-import socket
+# noinspection PyUnresolvedReferences
+import parentpath
 import threading
-import uuid
 
 from tools.aap import AnotherArgumentParser
 from tools.uds import UDSServer, UDSClient
+
 
 class IPCDaemon(UDSServer):
     log_client = None
@@ -54,6 +42,7 @@ class IPCClient(UDSClient):
             resp = self._socket.recv(self.RECEVICE_SIZE)
 
         return resp
+
 
 class UDSService:
     args = None
@@ -106,14 +95,16 @@ def init_args_parser():
     # create the parser for the "ipc daemon" command
     parser_ipc_daemon = subparsers_ipc.add_parser("daemon", help="run a ipc daemon.")
     parser_ipc_daemon.add_argument("-s", "--sockfile", required=True, help="domain socket path.")
-    parser_ipc_daemon.add_argument("-e", "--echo", action="store_true", default=False, help="reply the received data automatically.")
+    parser_ipc_daemon.add_argument("-e", "--echo", action="store_true", default=False,
+                                   help="reply the received data automatically.")
     parser_ipc_daemon.set_defaults(action="ipcdaemon")
 
     # create the parser for the "ipc client" command
     parser_ipc_client = subparsers_ipc.add_parser("client", help="run a ipc client.")
     parser_ipc_client.add_argument("-s", "--sockfile", required=True, help="domain socket path.")
     parser_ipc_client.add_argument("-d", "--data", required=True, help="ipc data.")
-    parser_ipc_client.add_argument("-a", "--async", action="store_true", default=False, help="send data asynchronously without waiting for response.")
+    parser_ipc_client.add_argument("-a", "--async", action="store_true", default=False,
+                                   help="send data asynchronously without waiting for response.")
     parser_ipc_client.set_defaults(action="ipcclient")
 
     return parser

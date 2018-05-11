@@ -10,13 +10,7 @@ uds.py: unix domain socket.
 
 import os
 import sys
-
-if __name__ == '__main__':
-    # prevent python from generating compiled byte code (.pyc).
-    sys.dont_write_bytecode = True
-
 import abc
-import io
 import signal
 import socket
 import uuid
@@ -94,7 +88,7 @@ class UDSServer(UDS, metaclass=abc.ABCMeta):
                     connection, _ = self._socket.accept()
                 except socket.timeout:
                     pass
-                except:
+                except Exception:
                     raise
                 else:
                     self.connection = connection
