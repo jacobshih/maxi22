@@ -1,6 +1,0 @@
-# lychee
-
-## overview
-
-python libraries.
-

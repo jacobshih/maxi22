@@ -10,7 +10,6 @@ a web application that demonstrates responsive web ui that interacts with golang
 * dockerfiles - dockerfile to create docker image of maxi22.
 * muffin - a bootstrap web application.
 * pastry - python cgi.
-* lychee - python lib.
 * go/src/grocer - go xml backend.
 
 ## create docker container
