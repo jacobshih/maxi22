@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 ################################################################################
 """
-uds.py: unix domain socket.
+uds_test.py: test uds :(unix domain socket.) module
 """
 # noinspection PyUnresolvedReferences
 import parentpath
