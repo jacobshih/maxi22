@@ -23,7 +23,9 @@ func (ipcSock *IPCSocket) init(s string) {
 }
 
 func (ipcSock *IPCSocket) start() {
+	oldMask := syscall.Umask(0111)	// to have the attributes srw-rw-rw-
 	ln, err := net.Listen("unix", ipcSock.sockFile)
+	syscall.Umask(oldMask)
 	if err != nil {
 		log.Fatal("listen error: ", err)
 	} else {
